@@ -1,146 +1,100 @@
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Lại Tuấn Kiệt - PS25037</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        form{
+    <head>
+        <title>Lại Tuấn Kiệt - PS25037</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+        <style>
+            form{
             width: 400px; margin: auto;
             padding: 10px 40px; background: whitesmoke;
             border: 1px solid black;
             border:  1px solid black;
+            }
+            .txt{
+                width: 400px; padding: 6px;
+                border: solid 1px lightslategrey;
+                margin-top: 0;
+            }
+            h2{
+                margin-top: 0;
+                text-align: center;
+                color: rgb(63, 4, 4);
+                width: 120%;
+                margin-left: -40px;
+                margin-top: -10px;
+                font-size: 29px;
+            }
+            .loi{color: red;}
+            
+            button{
+                width: 100px; height: 34px; background-color: royalblue; color: white;
+                border-radius: 15px; margin-left: 150px;
+            }
+            fieldset{
+                font-size: 14px;
+            }
+            label{margin-top: 30px;}
+        </style>
+    </head>
+    <body ng-app="b3" ng-controller="ctr1">
+       
+        <form name="frm">
+            <h2>Nhập thông tin sinh viên</h2>
+            <div class="form-group">
+                <label>Mã sinh viên</label>
+                <input name="masv" ng-model="masv" class="txt" required minlength="7" maxlength="7">
+                <em ng-if="frm.masv.$invalid" class="loi"><br>Vui lòng nhập 7 ký tự</em>
+            </div>
+            <div class="form-group">
+                <label>Họ và tên</label>
+                <input name="hoten" ng-model="hoten" class="txt" required minlength="2" maxlength="30">
+                <em ng-if="frm.hoten.$invalid" class="loi"><br>Nhập họ và tên sinh viên từ 2 đến 30 ký tự</em>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input name="temail" class="txt" ng-model="email" required type="email">
+                <em ng-if="frm.temail.$invalid" class="loi"><br>Vui lòng nhập email</em>
+            </div>
+            <div class="form-group">
+                <label>Giới tính</label>
+                <fieldset class="txt">
+                    <input name="gt" type="radio" value="1" ng-model="gt"> Nam &nbsp;
+                    <input name="gt" type="radio" value="2" ng-model="gt"> Nữ
+                    <em ng-if="!gt" class="loi"><br>Vui lòng chọn giới tính</em>
+                </fieldset>
+            </div>
+            <div class="form-group">
+                <label>Sở thích</label>
+                <fieldset class="txt">
+                    <input value="a" type="checkbox" ng-model="a"> Đọc sách &nbsp;
+                    <input value="b" type="checkbox" ng-model="b"> Du lịch &nbsp;
+                    <input value="c" type="checkbox" ng-model="c"> Ẩm thực &nbsp;
+                    <input value="d" type="checkbox" ng-model="d"> Âm nhạc &nbsp;
+                    <input value="e" type="checkbox" ng-model="e"> Khác
+                    <em ng-if="!a && !b && !c && !d &&!e" class="loi"><br>Bạn chưa chọn sở thích</em>
+                </fieldset>
+            </div>
+            <div class="form-group">
+                <label>Quốc tịch</label>
+                <select name="qt" class="txt" ng-model="qt">
+                    <option value="0">Chọn quốc tịch</option>
+                    <option value="1">Việt Nam</option>
+                    <option value="2">Singapore</option>
+                    <option value="3">Mỹ</option>
+                </select> 
+                <em ng-if="!qt" class="loi">Bạn chưa chọn quốc tịch</em>
+            </div>
+            <div class="form-group">
+                <button>Đăng ký</button>
+            </div>
+        </form>
+    </body>
+    <script>
+        app = angular.module("b3", []);
+        app.controller("ctr1", xuly);
+        function xuly($scope) {
+    
         }
-        .txt{
-            width: 400px; padding: 6px;
-            border: solid 1px lightslategrey;
-            margin-top: 0;
-        }
-        h2{
-            margin-top: 0;
-            text-align: center;
-            background-color: blue;
-            color: white;
-            width: 120%;
-            margin-left: -40px;
-            margin-top: -10px;
-            font-size: 29px;
-        }
-        #baoloi{color: red;}
-        .loi{
-            width: 400px;
-            background-color: yellow;
-            border: 1px solid red;
-        }
-        button{
-            width: 100px; height: 34px; background-color: royalblue; color: white;
-            border-radius: 15px; margin-left: 150px;
-        }
-    </style>
-</head>
-
-<body>
-    <form action="xuly.php" id="frm" method="post">
-        <h2>Đăng ký thành viên</h2>
-        <label>Họ Tên</label>
-        <p>
-            <input type="text" class="txt" id="ht">
-        </p>
-        <label>Email</label>
-        <p>
-            <input type="email" class="txt" id="em">
-        </p>
-        <label>Giới tính</label>
-        <p class="txt" id="gt">
-            <input type="radio" value="Nam" name="phai" class="nn">Nam
-            <input type="radio" value="Nữ" name="phai" class="nn">Nữ
-        </p>
-        <label>Sở thích</label>
-        <p class="txt" id="st">
-            <input type="checkbox" name="st" id="n">Đọc sách
-            <input type="checkbox" name="st" id="n">Du lịch
-            <input type="checkbox" name="st" id="n">Ẩm thực
-        <input type="checkbox" name="st" id="n">Âm nhạc
-            <input type="checkbox" name="st" id="n">Khác
-        </p>
-        <label>Quốc tịch</label>
-        <p>
-            <select name="qt" class="txt" id="qt">
-                <option value="0">Chọn quốc tịch</option>
-                <option value="1">Việt Nam</option>
-                <option value="2">USA</option>
-                <option value="3">Khác</option>
-            </select>
-        </p>
-        <label>Ghi chú</label>
-        <p>
-            <textarea class="txt" id="gc" name="gc"></textarea>
-        </p>
-        <p>
-        <div id="baoloi"></div>
-        <button type="button" onclick="return kiemtra()" id="nut"class="btn">Đăng ký</button>
-        </p>
-    </form>
-</body>
-<script>
-    function kiemtra() {
-        var loi = "";
-        var ht = document.getElementById("ht")
-        if (ht.value == "") {
-            ht.className = "loi";
-            loi += "Họ tên không dược bỏ trống<br>"
-        }
-        else if (ht.value.length >= 30) {
-            ht.className = "loi";
-            loi += "Họ tên quá nhiều kí tự<br>"
-        }
-        else if (isNaN(ht.value) == false) {
-            ht.className = "loi";
-            loi += "Họ tên không được chứa số<br>"
-        }
-        else { ht.className = "txt" };
-        var em = document.getElementById("em")
-        if (em.value == "") {
-            em.className = "loi";
-            loi += "Email không dược bỏ trống<br>"
-        }
-        else { em.className = "txt" };
-        dem = 0;
-        var arrphai = document.getElementsByName("phai");
-        for (var i = 0; i < arrphai.length; i++) {
-            if (arrphai[i].checked) dem++;
-        } if (dem == 0) {
-            document.getElementById("gt").className = "loi";
-            loi += "Phải chọn giới tính<br>"
-        }
-        else { document.getElementById("gt").className = "txt"; }
         
-        var arrst = document.getElementsByName("st");
-        dem=0;
-        for (var i = 0; i < arrst.length; i++) {
-            if (arrst[i].checked) dem++;
-        } if (dem == 0) {
-            document.getElementById("st").className = "loi";
-            loi += "Phải chọn ít nhất 1 sở thích<br>"
-        }
-        else { document.getElementById("st").className = "txt"; }
-        var qt= document.getElementById("qt");
-        if(qt.value==0){
-            qt.className = "loi";
-            loi += "Phải chọn quốc tịch<br>"
-        }
-        else{qt.className = "txt";}
-        var gc=document.getElementById("gc")
-        if (gc.value.length >= 200) {
-            gc.className = "loi";
-            loi += "ghi chú quá nhiều kí tự<br>"
-        }
-        else{gc.className = "txt";}
-        if (loi != "") {
-            document.getElementById("baoloi").innerHTML = loi;
-            return false;
-        }
-    }
-</script>
-
+    </script>
+    
 </html>
