@@ -1,0 +1,181 @@
+<html>
+    <head>
+        <title>Lại Tuấn Kiệt - PS25037</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="css/style.css">
+        <style>
+            .container{
+                width: 500px; 
+                margin: auto; 
+                background-color: black;
+                color: white;
+                font-size: 22px;
+                text-align: center;
+                border: solid 2px firebrick;
+                border-radius: 15px;
+            }
+            form input[id]{
+                width: 200px;
+                text-align: center;
+                font-size: 19px;
+                padding: 6px 0;
+                border: 2px solid red;
+                border-radius: 20px;
+                background-color: floralwhite;
+            }
+            form button{
+                width: 120px; 
+                height: 40px; 
+                border-radius: 20px;
+                margin: 20px;
+            }
+            .nut{background-color: red; color: white;}
+            .nut_khoa{background-color: rgb(241, 86, 86); color: white;}
+            #solangiai{color: yellow; font-size: 26px;}
+            #kq{
+                height: 210px;
+                margin: 10px 50px 0 50px;
+                border: 1px double white;
+            }
+            #dongho{font-style: italic;}
+        </style>
+    </head>
+    <body><div class="boxcenter">
+        <div class="row mb header">
+            <h1> SIÊU THỊ TRỰC TUYẾN</h1>
+        </div>
+
+        <div class="row mb menu">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a onclick="cligiohang()">Giỏ hàng</a></li>
+                <li><a href="lienhe.html">Liên hệ</a></li>
+                <li><a href="#">Góp ý</a></li>
+                <li><a href="#">Hỏi đáp</a></li>
+                <li><a href="bai4.html">Đăng ký</a></li>
+            </ul>
+        </div>
+        <div class="container">
+                <h3><span id="td">GIẢI PHƯƠNG TRÌNH BẬC 2: </span><br><span id="a12"><span id="a1">a</span>x<sup>2</sup> + </span><span id="b1">b</span>x + <span id="c1">c</span> = 0</h3>
+            <span>Số lần giải: <b id="solangiai">  </b></span>
+            <hr>
+            <form>
+                <p><label>Nhập số a: </label> <input type="text" onkeyup="kiemtra()" id="a"></p>
+                <p><label>Nhập số b: </label> <input type="text" onkeyup="kiemtra()" id="b"></p>
+                <p><label>Nhập số c: </label> <input type="text" onkeyup="kiemtra()" id="c"></p>
+                <button type="button" class="nut_khoa" disabled id="btngiai" onclick="ptb2.giai(); dem(); chuyen();"> GIẢI PT </button>
+                <button type="button" class="nut" id="btnchoso" onclick="choso()"> CHO SỐ </button>
+            </form>
+            <div id="kq"> </div>
+            <p id="dongho"></p>
+        </div>
+    </body>
+</html> 
+<script>
+    function choso(){
+        var a = Math.round((Math.random()-0.5)*10);
+        var b = Math.round((Math.random()-0.5)*10);
+        var c = Math.round((Math.random()-0.5)*10);
+        document.getElementById("a").value=a;
+        document.getElementById("b").value=b;
+        document.getElementById("c").value=c;
+        document.getElementById("a1").innerHTML=a;
+        document.getElementById("b1").innerHTML=b;
+        document.getElementById("c1").innerHTML=c;
+        var btn = document.getElementById("btngiai");
+        btn.disabled=false;
+        btn.className='nut';
+    }
+</script>
+<script>
+    var ptb2 = {
+        giai:function(){
+            var a = document.getElementById("a").value;
+            var b = document.getElementById("b").value;
+            var c = document.getElementById("c").value;
+            if(a==0){
+                if(b==0){
+                    if(c==0){
+                        var str=`<p>Phương trình có vô số nghiệm</p>`;
+                        document.getElementById("kq").innerHTML=str;
+                    }else{
+                        var str=`<p>Phương trình vô nghiệm</p>`;
+                        document.getElementById("kq").innerHTML=str;
+                    }
+                }else{
+                    document.getElementById("td").innerHTML="GIẢI PHƯƠNG TRÌNH BẬC 1 :";
+                    document.getElementById("a12").remove();
+                    var x = -c/b;
+                    var str=`<p>Phương trình có 1 nghiệm là:</p>
+                            <p>x = ${x.toFixed(2)}</p>`;
+                    document.getElementById("kq").innerHTML=str;
+                }
+            }else{
+                var delta = b*b - 4*a*c;
+                if(delta<0){
+                    var str=`<p>Phương trình vô nghiệm</p>`;
+                    document.getElementById("kq").innerHTML=str;
+                }else if(delta==0){
+                    var x0 = (-b)/2*a;
+                    var str=`<p>Phương trình có nghiệm kép:</p>
+                            <p>x = ${x0.toFixed(2)}</p>        
+                    `;
+                    document.getElementById("kq").innerHTML=str;
+                }else{
+                    var x1 = (-b + Math.sqrt(delta))/(2*a);
+                    var x2 = (-b - Math.sqrt(delta))/(2*a);
+                    var tong = x1*1+x2*1;
+                    var str=`<p>Phương trình có 2 nghiệm phân biệt:</p>
+                            <p>x<sub>1</sub> = ${x1.toFixed(2)} </p>
+                            <p>x<sub>2</sub> = ${x2.toFixed(2)} </p>
+                            <p>Tổng của 2 nghiệm là: ${tong.toFixed(2)}</p>`;
+                    document.getElementById("kq").innerHTML=str;
+
+                }
+            }
+        }
+    }
+</script>
+<script>
+    function kiemtra() { //kiem tra text
+        var a = document.getElementById("a").value;
+        var b = document.getElementById("b").value;
+        var c = document.getElementById("c").value;
+        if (a.value == "" || b.value == "" || c.value == "") {
+            document.getElementById("btngiai").disabled = true;
+        }
+        else {
+            document.getElementById("btngiai").disabled = false;
+            document.getElementById("btngiai").className= 'nut';
+            document.getElementById("a1").innerHTML=a;
+            document.getElementById("b1").innerHTML=b;
+            document.getElementById("c1").innerHTML=c;
+  }
+    }
+</script>
+<script>
+    var solangiai=0;
+    function dem(){
+        solangiai++;
+        document.getElementById("solangiai").innerHTML=solangiai;
+    }
+</script>
+<script>
+    function thoigian(){
+        var d = new Date();
+        var nam = d.getFullYear();
+        var thang = d.getMonth()+1;
+        var ngay = d.getDate();
+        var gio = d.getHours();
+        var phut = d.getMinutes();
+        var giay = d.getSeconds();
+        var str=`Bây giờ là: ${ngay}/${thang}/${nam} ${gio}:${phut}:${giay}`;
+        document.getElementById("dongho").innerHTML=str;
+    }
+    setInterval("thoigian()",50);
+</script>
+<script>
+    function chuyen(){
+        
+    }
+</script>

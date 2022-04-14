@@ -1,0 +1,161 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lại Tuấn Kiệt - PS25037</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        form{
+            width: 400px; margin: auto;
+            padding: 10px 40px; background: whitesmoke;
+            border: 1px solid black;
+            border:  1px solid black;
+        }
+        .txt{
+            width: 400px; padding: 6px;
+            border: solid 1px lightslategrey;
+            margin-top: 0;
+        }
+        h2{
+            margin-top: 0;
+            text-align: center;
+            background-color: blue;
+            color: white;
+            width: 120%;
+            margin-left: -40px;
+            margin-top: -10px;
+            font-size: 29px;
+        }
+        #baoloi{color: red;}
+        .loi{
+            width: 400px;
+            background-color: yellow;
+            border: 1px solid red;
+        }
+        button{
+            width: 100px; height: 34px; background-color: royalblue; color: white;
+            border-radius: 15px; margin-left: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="boxcenter">
+        <div class="row mb header">
+            <h1> SIÊU THỊ TRỰC TUYẾN</h1>
+        </div>
+
+        <div class="row mb menu">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a onclick="cligiohang()">Giỏ hàng</a></li>
+                <li><a href="lienhe.html">Liên hệ</a></li>
+                <li><a href="#">Góp ý</a></li>
+                <li><a href="#">Hỏi đáp</a></li>
+                <li><a href="bai4.html">Đăng ký</a></li>
+            </ul>
+        </div>
+    <form action="xuly.php" id="frm" method="post">
+        <h2>Đăng ký thành viên</h2>
+        <label>Họ Tên</label>
+        <p>
+            <input type="text" class="txt" id="ht">
+        </p>
+        <label>Email</label>
+        <p>
+            <input type="email" class="txt" id="em">
+        </p>
+        <label>Giới tính</label>
+        <p class="txt" id="gt">
+            <input type="radio" value="Nam" name="phai" class="nn">Nam
+            <input type="radio" value="Nữ" name="phai" class="nn">Nữ
+        </p>
+        <label>Sở thích</label>
+        <p class="txt" id="st">
+            <input type="checkbox" name="st" id="n">Đọc sách
+            <input type="checkbox" name="st" id="n">Du lịch
+            <input type="checkbox" name="st" id="n">Ẩm thực
+        <input type="checkbox" name="st" id="n">Âm nhạc
+            <input type="checkbox" name="st" id="n">Khác
+        </p>
+        <label>Quốc tịch</label>
+        <p>
+            <select name="qt" class="txt" id="qt">
+                <option value="0">Chọn quốc tịch</option>
+                <option value="1">Việt Nam</option>
+                <option value="2">USA</option>
+                <option value="3">Khác</option>
+            </select>
+        </p>
+        <label>Ghi chú</label>
+        <p>
+            <textarea class="txt" id="gc" name="gc"></textarea>
+        </p>
+        <p>
+        <div id="baoloi"></div>
+        <button type="button" onclick="return kiemtra()" id="nut"class="btn">Đăng ký</button>
+        </p>
+    </form>
+</body>
+<script>
+    function kiemtra() {
+        var loi = "";
+        var ht = document.getElementById("ht")
+        if (ht.value == "") {
+            ht.className = "loi";
+            loi += "Họ tên không dược bỏ trống<br>"
+        }
+        else if (ht.value.length >= 30) {
+            ht.className = "loi";
+            loi += "Họ tên quá nhiều kí tự<br>"
+        }
+        else if (isNaN(ht.value) == false) {
+            ht.className = "loi";
+            loi += "Họ tên không được chứa số<br>"
+        }
+        else { ht.className = "txt" };
+        var em = document.getElementById("em")
+        if (em.value == "") {
+            em.className = "loi";
+            loi += "Email không dược bỏ trống<br>"
+        }
+        else { em.className = "txt" };
+        dem = 0;
+        var arrphai = document.getElementsByName("phai");
+        for (var i = 0; i < arrphai.length; i++) {
+            if (arrphai[i].checked) dem++;
+        } if (dem == 0) {
+            document.getElementById("gt").className = "loi";
+            loi += "Phải chọn giới tính<br>"
+        }
+        else { document.getElementById("gt").className = "txt"; }
+        
+        var arrst = document.getElementsByName("st");
+        dem=0;
+        for (var i = 0; i < arrst.length; i++) {
+            if (arrst[i].checked) dem++;
+        } if (dem == 0) {
+            document.getElementById("st").className = "loi";
+            loi += "Phải chọn ít nhất 1 sở thích<br>"
+        }
+        else { document.getElementById("st").className = "txt"; }
+        var qt= document.getElementById("qt");
+        if(qt.value==0){
+            qt.className = "loi";
+            loi += "Phải chọn quốc tịch<br>"
+        }
+        else{qt.className = "txt";}
+        var gc=document.getElementById("gc")
+        if (gc.value.length >= 200) {
+            gc.className = "loi";
+            loi += "ghi chú quá nhiều kí tự<br>"
+        }
+        else{gc.className = "txt";}
+        if (loi != "") {
+            document.getElementById("baoloi").innerHTML = loi;
+            return false;
+        }
+    }
+</script>
+
+</html>
